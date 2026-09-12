@@ -5,13 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Undangan Pernikahan Ikbal & Rina</title>
 
+<!-- ============================================================
+     🖼️ THUMBNAIL WHATSAPP
+     ============================================================ -->
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://ikbal-rina.netlify.app/">
 <meta property="og:title" content="Undangan Pernikahan Ikbal & Rina">
 <meta property="og:description" content="Ahad, 20 September 2026 — Ponpes Jibriliyah, Larangan, Brebes">
 <meta property="og:image" content="https://files.catbox.moe/veaoy9.jpg">
 <meta property="og:image:secure_url" content="https://files.catbox.moe/veaoy9.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Undangan Pernikahan Ikbal & Rina">
+<meta name="twitter:description" content="Ahad, 20 September 2026 — Ponpes Jibriliyah, Larangan, Brebes">
 <meta name="twitter:image" content="https://files.catbox.moe/veaoy9.jpg">
+
+<link rel="icon" type="image/jpeg" href="https://files.catbox.moe/veaoy9.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -166,10 +177,6 @@ section.blk{padding:56px 22px;position:relative;max-width:640px;margin:0 auto}
 .btn-submit{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--wood-dark),var(--wood));color:var(--gold-2);font-family:'Playfair Display',serif;font-weight:700;letter-spacing:2px;font-size:13px}
 .btn-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;margin-top:10px;border-radius:12px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;text-decoration:none;font-family:'Playfair Display',serif;font-weight:700;letter-spacing:1.5px;font-size:13px}
 
-.ucapan-item{padding:12px 14px;border-left:3px solid var(--gold);background:rgba(212,175,55,.08);border-radius:8px;margin-bottom:10px}
-.ucapan-item b{color:var(--wood-dark);font-family:'Playfair Display',serif}
-.ucapan-item p{font-size:14px;color:var(--wood);font-style:italic}
-
 footer{text-align:center;padding:40px 20px 60px;background:linear-gradient(180deg,transparent,rgba(42,24,12,.95));color:var(--cream)}
 footer .thanks{font-family:'Great Vibes',cursive;font-size:32px;color:var(--gold-2)}
 footer .names{font-family:'Playfair Display',serif;letter-spacing:3px;font-size:13px;color:var(--pink);margin-top:8px}
@@ -186,6 +193,16 @@ footer .kr{font-family:'Playfair Display',serif;font-size:11px;color:rgba(247,21
 </head>
 
 <body>
+
+<!-- ============================================================
+     ✏️ GANTI NAMA TAMU DI SINI (1 BARIS SAJA)
+     ============================================================
+     Tinggal ubah teks "Bapak/Ibu/Saudara Tamu" di bawah ini.
+     Nama ini akan muncul otomatis di cover undangan.
+     ============================================================ -->
+<script>
+  window.NAMA_TAMU = "Bapak/Ibu/Saudara Tamu";
+</script>
 
 <div id="loader">
   <div class="spinner"></div>
@@ -381,21 +398,33 @@ footer .kr{font-family:'Playfair Display',serif;font-size:11px;color:rgba(247,21
 </audio>
 
 <script>
-/* ============================================
-   UNDANGAN STANDALONE — semua data di sini
-   ============================================ */
-const DANA_NUM = '085755582794';
-const WA_NUM   = '6285755582794';
+/* ============================================================
+   UNDANGAN STANDALONE
+   ============================================================ */
 
-/* Ambil nama tamu dari URL ?to=Nama */
+/* ============================================================
+   ✏️ NAMA TAMU — INI DIA!
+   ============================================================
+   Ganti teks di bawah dengan nama tamu yang Anda inginkan.
+   Contoh: "Bapak Ahmad", "Ibu Siti & Keluarga", dll.
+   
+   Kalau Anda membuka link dengan ?to=Nama, maka otomatis
+   akan memakai nama dari URL (untuk kirim massal).
+   ============================================================ */
+const NAMA_TAMU_DEFAULT = window.NAMA_TAMU || "Bapak/Ibu/Saudara Tamu";
+
+/* Kalau ada ?to=Nama di URL, pakai itu (untuk kirim massal) */
 function getRecipient(){
   const p = new URLSearchParams(window.location.search);
   const to = p.get('to');
-  return (to && to.trim()) ? decodeURIComponent(to).substring(0,60) : 'Tamu Undangan';
+  return (to && to.trim()) ? decodeURIComponent(to).substring(0,60) : NAMA_TAMU_DEFAULT;
 }
 const RECIPIENT = getRecipient();
 
-/* GALERI — semua foto & caption */
+const DANA_NUM = '085755582794';
+const WA_NUM   = '6285755582794';
+
+/* GALERI */
 const GALERI_DATA = [
   {foto:'https://files.catbox.moe/7neys6.jpg', nama:'Ikbal Ramadani',  caption:'Bak wayang yang digerakkan Sang Dalang, hidup ini milik-Nya'},
   {foto:'https://files.catbox.moe/6aah5b.jpg', nama:'Rina Agustin',   caption:'Cantik dalam balutan doa, anggun dalam iman'},
@@ -427,12 +456,10 @@ document.addEventListener('DOMContentLoaded', () => {
 /* SLIDER */
 let currentSlide = 0;
 let slideTimer = null;
-
 function buildSlider(){
   const slider = document.getElementById('slider');
   const nav = document.getElementById('sliderNav');
   slider.innerHTML = ''; nav.innerHTML = '';
-
   GALERI_DATA.forEach((item, i) => {
     const div = document.createElement('div');
     div.className = 'slide' + (i === 0 ? ' active' : '');
@@ -443,7 +470,6 @@ function buildSlider(){
         <div class="poem">"${item.caption || ''}"</div>
       </div>`;
     slider.appendChild(div);
-
     const dot = document.createElement('button');
     dot.className = 'dot' + (i === 0 ? ' active' : '');
     dot.addEventListener('click', () => goSlide(i));
@@ -451,7 +477,6 @@ function buildSlider(){
   });
   startAutoSlide();
 }
-
 function goSlide(i){
   const slides = document.querySelectorAll('#slider .slide');
   const dots   = document.querySelectorAll('#sliderNav .dot');
@@ -463,20 +488,11 @@ function goSlide(i){
   dots[currentSlide].classList.add('active');
   resetAutoSlide();
 }
-
-function startAutoSlide(){
-  clearInterval(slideTimer);
-  slideTimer = setInterval(() => goSlide(currentSlide + 1), 4000);
-}
+function startAutoSlide(){ clearInterval(slideTimer); slideTimer = setInterval(() => goSlide(currentSlide + 1), 4000); }
 function resetAutoSlide(){ startAutoSlide(); }
-
 function preloadImages(){
-  ['https://files.catbox.moe/veaoy9.jpg','https://files.catbox.moe/6aah5b.jpg','https://files.catbox.moe/7neys6.jpg'].forEach(u=>{
-    const im = new Image(); im.src = u;
-  });
-  setTimeout(() => {
-    GALERI_DATA.forEach(item => { const im = new Image(); im.src = item.foto; });
-  }, 1500);
+  ['https://files.catbox.moe/veaoy9.jpg','https://files.catbox.moe/6aah5b.jpg','https://files.catbox.moe/7neys6.jpg'].forEach(u=>{const im=new Image();im.src=u;});
+  setTimeout(() => { GALERI_DATA.forEach(item => { const im = new Image(); im.src = item.foto; }); }, 1500);
 }
 
 /* COUNTDOWN */
@@ -487,7 +503,6 @@ function startCountdown(){
   const elM = document.getElementById('cdM');
   const elD = document.getElementById('cdD');
   const pad = n => String(n).padStart(2,'0');
-
   function tick(){
     const now = Date.now();
     let diff = target - now;
@@ -496,37 +511,26 @@ function startCountdown(){
     const h = Math.floor(diff % 86400000 / 3600000);
     const m = Math.floor(diff % 3600000 / 60000);
     const s = Math.floor(diff % 60000 / 1000);
-    elH.textContent = pad(d);
-    elJ.textContent = pad(h);
-    elM.textContent = pad(m);
-    elD.textContent = pad(s);
+    elH.textContent = pad(d); elJ.textContent = pad(h); elM.textContent = pad(m); elD.textContent = pad(s);
   }
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 }
 
 /* REVEAL */
 function initReveal(){
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if(e.isIntersecting){
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal, .slide-in-left, .slide-in-right, .slide-in-up, .slide-in-zoom')
-    .forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal, .slide-in-left, .slide-in-right, .slide-in-up, .slide-in-zoom').forEach(el => io.observe(el));
 }
 
 /* BUKA UNDANGAN */
 document.getElementById('btnOpen').addEventListener('click', () => {
   const bgm = document.getElementById('bgm');
   bgm.volume = 0.6;
-  bgm.play().then(()=>{
-    document.getElementById('musicBtn').classList.add('spin');
-  }).catch(err => console.warn('Autoplay diblokir:', err));
-
+  bgm.play().then(()=>{ document.getElementById('musicBtn').classList.add('spin'); }).catch(err => console.warn('Autoplay diblokir:', err));
   document.getElementById('cover').classList.add('hide');
   setTimeout(() => {
     document.getElementById('main').classList.add('show');
@@ -551,7 +555,7 @@ document.getElementById('btnCopyDana').addEventListener('click', function(){
   });
 });
 
-/* WA LINK */
+/* WA */
 function updateWaLink(msg){
   const text = encodeURIComponent(
     `Assalamu'alaikum,\n\nSaya *${RECIPIENT}* mengucapkan selamat menempuh hidup baru kepada *Ikbal Ramadani & Rina Agustin*.\n\n${msg || 'Semoga menjadi keluarga sakinah, mawaddah, warahmah. Aamiin.'}\n\nBarakallahu lakuma wa baraka alaikuma wa jama\'a bainakuma fii khairin.`
@@ -559,14 +563,12 @@ function updateWaLink(msg){
   document.getElementById('btnWa').href = `https://wa.me/${WA_NUM}?text=${text}`;
 }
 
-/* RSVP → WhatsApp */
+/* RSVP */
 document.getElementById('btnKirim').addEventListener('click', () => {
   const nama = document.getElementById('rsvpNama').value.trim() || RECIPIENT;
   const hadir = document.getElementById('rsvpHadir').value;
   const ucapan = document.getElementById('rsvpUcapan').value.trim();
-
   if(!ucapan){ alert('Mohon tulis ucapan & doa terlebih dahulu.'); return; }
-
   const text = encodeURIComponent(
     `Assalamu'alaikum,\n\nSaya *${nama}* (${hadir}).\n\nUcapan & doa:\n"${ucapan}"\n\nUntuk *Ikbal Ramadani & Rina Agustin*.\n\nBarakallahu lakuma wa baraka alaikuma wa jama\'a bainakuma fii khairin. 🤍`
   );
